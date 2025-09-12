@@ -1,352 +1,188 @@
-# Claude Code Configuration - SPARC Development Environment
+# CLAUDE.md
 
-## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
-
-**ABSOLUTE RULES**:
-1. ALL operations MUST be concurrent/parallel in a single message
-2. **NEVER save working files, text/mds and tests to the root folder**
-3. ALWAYS organize files in appropriate subdirectories
-4. **USE CLAUDE CODE'S TASK TOOL** for spawning agents concurrently, not just MCP
-
-### ⚡ GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
-
-**MANDATORY PATTERNS:**
-- **TodoWrite**: ALWAYS batch ALL todos in ONE call (5-10+ todos minimum)
-- **Task tool (Claude Code)**: ALWAYS spawn ALL agents in ONE message with full instructions
-- **File operations**: ALWAYS batch ALL reads/writes/edits in ONE message
-- **Bash commands**: ALWAYS batch ALL terminal operations in ONE message
-- **Memory operations**: ALWAYS batch ALL memory store/retrieve in ONE message
-
-### 🎯 CRITICAL: Claude Code Task Tool for Agent Execution
-
-**Claude Code's Task tool is the PRIMARY way to spawn agents:**
-```javascript
-// ✅ CORRECT: Use Claude Code's Task tool for parallel agent execution
-[Single Message]:
-  Task("Research agent", "Analyze requirements and patterns...", "researcher")
-  Task("Coder agent", "Implement core features...", "coder")
-  Task("Tester agent", "Create comprehensive tests...", "tester")
-  Task("Reviewer agent", "Review code quality...", "reviewer")
-  Task("Architect agent", "Design system architecture...", "system-architect")
-```
-
-**MCP tools are ONLY for coordination setup:**
-- `mcp__claude-flow__swarm_init` - Initialize coordination topology
-- `mcp__claude-flow__agent_spawn` - Define agent types for coordination
-- `mcp__claude-flow__task_orchestrate` - Orchestrate high-level workflows
-
-### 📁 File Organization Rules
-
-**NEVER save to root folder. Use these directories:**
-- `/src` - Source code files
-- `/tests` - Test files
-- `/docs` - Documentation and markdown files
-- `/config` - Configuration files
-- `/scripts` - Utility scripts
-- `/examples` - Example code
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-This project uses SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) methodology with Claude-Flow orchestration for systematic Test-Driven Development.
+This is a **Net Ecosystem Platform** - a multi-tenant SaaS application built with Next.js 15, shadcn/ui, and Logto for authentication and organization-based identity management. The project serves as a foundation for building production-ready organization-aware platform applications.
 
-## SPARC Commands
+## Commands
 
-### Core Commands
-- `npx claude-flow sparc modes` - List available modes
-- `npx claude-flow sparc run <mode> "<task>"` - Execute specific mode
-- `npx claude-flow sparc tdd "<feature>"` - Run complete TDD workflow
-- `npx claude-flow sparc info <mode>` - Get mode details
-
-### Batchtools Commands
-- `npx claude-flow sparc batch <modes> "<task>"` - Parallel execution
-- `npx claude-flow sparc pipeline "<task>"` - Full pipeline processing
-- `npx claude-flow sparc concurrent <mode> "<tasks-file>"` - Multi-task processing
-
-### Build Commands
-- `npm run build` - Build project
-- `npm run test` - Run tests
-- `npm run lint` - Linting
-- `npm run typecheck` - Type checking
-
-## SPARC Workflow Phases
-
-1. **Specification** - Requirements analysis (`sparc run spec-pseudocode`)
-2. **Pseudocode** - Algorithm design (`sparc run spec-pseudocode`)
-3. **Architecture** - System design (`sparc run architect`)
-4. **Refinement** - TDD implementation (`sparc tdd`)
-5. **Completion** - Integration (`sparc run integration`)
-
-## Code Style & Best Practices
-
-- **Modular Design**: Files under 500 lines
-- **Environment Safety**: Never hardcode secrets
-- **Test-First**: Write tests before implementation
-- **Clean Architecture**: Separate concerns
-- **Documentation**: Keep updated
-
-## 🚀 Available Agents (54 Total)
-
-### Core Development
-`coder`, `reviewer`, `tester`, `planner`, `researcher`
-
-### Swarm Coordination
-`hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`, `collective-intelligence-coordinator`, `swarm-memory-manager`
-
-### Consensus & Distributed
-`byzantine-coordinator`, `raft-manager`, `gossip-coordinator`, `consensus-builder`, `crdt-synchronizer`, `quorum-manager`, `security-manager`
-
-### Performance & Optimization
-`perf-analyzer`, `performance-benchmarker`, `task-orchestrator`, `memory-coordinator`, `smart-agent`
-
-### GitHub & Repository
-`github-modes`, `pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`, `workflow-automation`, `project-board-sync`, `repo-architect`, `multi-repo-swarm`
-
-### SPARC Methodology
-`sparc-coord`, `sparc-coder`, `specification`, `pseudocode`, `architecture`, `refinement`
-
-### Specialized Development
-`backend-dev`, `mobile-dev`, `ml-developer`, `cicd-engineer`, `api-docs`, `system-architect`, `code-analyzer`, `base-template-generator`
-
-### Testing & Validation
-`tdd-london-swarm`, `production-validator`
-
-### Migration & Planning
-`migration-planner`, `swarm-init`
-
-## 🎯 Claude Code vs MCP Tools
-
-### Claude Code Handles ALL EXECUTION:
-- **Task tool**: Spawn and run agents concurrently for actual work
-- File operations (Read, Write, Edit, MultiEdit, Glob, Grep)
-- Code generation and programming
-- Bash commands and system operations
-- Implementation work
-- Project navigation and analysis
-- TodoWrite and task management
-- Git operations
-- Package management
-- Testing and debugging
-
-### MCP Tools ONLY COORDINATE:
-- Swarm initialization (topology setup)
-- Agent type definitions (coordination patterns)
-- Task orchestration (high-level planning)
-- Memory management
-- Neural features
-- Performance tracking
-- GitHub integration
-
-**KEY**: MCP coordinates the strategy, Claude Code's Task tool executes with real agents.
-
-## 🚀 Quick Setup
-
+### Development
 ```bash
-# Add MCP servers (Claude Flow required, others optional)
-claude mcp add claude-flow npx claude-flow@alpha mcp start
-claude mcp add ruv-swarm npx ruv-swarm mcp start  # Optional: Enhanced coordination
-claude mcp add flow-nexus npx flow-nexus@latest mcp start  # Optional: Cloud features
+# Start development server with Turbopack
+npm run dev
+
+# Build the project with Turbopack  
+npm run build
+
+# Start production server
+npm run start
+
+# Run ESLint
+npm run lint
 ```
 
-## MCP Tool Categories
+### Package Management
+Uses `pnpm` as the package manager (evidenced by `pnpm-lock.yaml`).
 
-### Coordination
-`swarm_init`, `agent_spawn`, `task_orchestrate`
+## Architecture Overview
 
-### Monitoring
-`swarm_status`, `agent_list`, `agent_metrics`, `task_status`, `task_results`
+### Core Technology Stack
+- **Framework**: Next.js 15 with App Router and Turbopack
+- **UI**: shadcn/ui (New York style) with Radix UI primitives
+- **Authentication**: Logto with organization-based multi-tenancy
+- **Styling**: Tailwind CSS v4 with CSS variables
+- **TypeScript**: Strict mode with path aliases (`@/*`)
+- **Icons**: Lucide React and Tabler Icons
+- **Forms**: React Hook Form with Zod validation
 
-### Memory & Neural
-`memory_usage`, `neural_status`, `neural_train`, `neural_patterns`
+### Application Structure
 
-### GitHub Integration
-`github_swarm`, `repo_analyze`, `pr_enhance`, `issue_triage`, `code_review`
+The platform follows a universal app pattern with four main sections accessible via the UniversalAppBar:
+- **Inbox** (`/inbox`) - Communication and notification hub
+- **Library** (`/library`) - Template and asset management
+- **Catalog** (`/catalog`) - App marketplace and discovery
+- **Profile** (`/profile`) - User and organization management
 
-### System
-`benchmark_run`, `features_detect`, `swarm_monitor`
+### Multi-tenancy Architecture
 
-### Flow-Nexus MCP Tools (Optional Advanced Features)
-Flow-Nexus extends MCP capabilities with 70+ cloud-based orchestration tools:
+Based on Logto organizations for true multi-tenant SaaS architecture:
 
-**Key MCP Tool Categories:**
-- **Swarm & Agents**: `swarm_init`, `swarm_scale`, `agent_spawn`, `task_orchestrate`
-- **Sandboxes**: `sandbox_create`, `sandbox_execute`, `sandbox_upload` (cloud execution)
-- **Templates**: `template_list`, `template_deploy` (pre-built project templates)
-- **Neural AI**: `neural_train`, `neural_patterns`, `seraphina_chat` (AI assistant)
-- **GitHub**: `github_repo_analyze`, `github_pr_manage` (repository management)
-- **Real-time**: `execution_stream_subscribe`, `realtime_subscribe` (live monitoring)
-- **Storage**: `storage_upload`, `storage_list` (cloud file management)
+**Organization Context**: 
+- Users belong to organizations with role-based access control
+- Organization-scoped authentication tokens and API calls
+- Permission-based routing and feature access
 
-**Authentication Required:**
-- Register: `mcp__flow-nexus__user_register` or `npx flow-nexus@latest register`
-- Login: `mcp__flow-nexus__user_login` or `npx flow-nexus@latest login`
-- Access 70+ specialized MCP tools for advanced orchestration
+**Authentication Patterns** (from example implementation):
+- `getOrganizationToken(organizationId)` for organization-scoped API calls
+- `getUserOrganizationScopes(organizationId)` for permission checking
+- Separate handling for user-level vs organization-level authentication
 
-## 🚀 Agent Execution Flow with Claude Code
+**API Integration**:
+- Organization-aware API calls: `fetchWithToken(endpoint, options, organizationId)`
+- Token validation and scope verification
+- Multi-tenant data isolation at the organization level
 
-### The Correct Pattern:
+### Component Architecture
 
-1. **Optional**: Use MCP tools to set up coordination topology
-2. **REQUIRED**: Use Claude Code's Task tool to spawn agents that do actual work
-3. **REQUIRED**: Each agent runs hooks for coordination
-4. **REQUIRED**: Batch all operations in single messages
+- **Universal App Bar**: Responsive navigation (desktop sidebar, mobile bottom bar)
+- **shadcn/ui Integration**: New York style with CSS variables for theming
+- **Data Tables**: Advanced table components with sorting, filtering, and pagination
+- **Form System**: React Hook Form with Zod schemas for validation
+- **Drag & Drop**: @dnd-kit for sortable interfaces
 
-### Example Full-Stack Development:
+### File Structure
+```
+app/                    # Next.js App Router pages
+├── layout.tsx         # Root layout with UniversalAppBar
+├── page.tsx           # Homepage
+└── [routes]/          # Feature-specific pages
 
-```javascript
-// Single message with all agent spawning via Claude Code's Task tool
-[Parallel Agent Execution]:
-  Task("Backend Developer", "Build REST API with Express. Use hooks for coordination.", "backend-dev")
-  Task("Frontend Developer", "Create React UI. Coordinate with backend via memory.", "coder")
-  Task("Database Architect", "Design PostgreSQL schema. Store schema in memory.", "code-analyzer")
-  Task("Test Engineer", "Write Jest tests. Check memory for API contracts.", "tester")
-  Task("DevOps Engineer", "Setup Docker and CI/CD. Document in memory.", "cicd-engineer")
-  Task("Security Auditor", "Review authentication. Report findings via hooks.", "reviewer")
-  
-  // All todos batched together
-  TodoWrite { todos: [...8-10 todos...] }
-  
-  // All file operations together
-  Write "backend/server.js"
-  Write "frontend/App.jsx"
-  Write "database/schema.sql"
+components/            # Reusable components
+├── ui/               # shadcn/ui components
+├── forms/            # Form components with validation
+├── data-table/       # Advanced table components
+└── universal-app-bar.tsx  # Main navigation
+
+lib/                  # Utilities and shared logic
+├── utils.ts          # Tailwind merge utilities
+└── [data].ts         # Mock data and schemas
+
+hooks/                # Custom React hooks
+docs/dashboard/       # Architecture and setup documentation
+example/              # Multi-tenant SaaS reference implementation
 ```
 
-## 📋 Agent Coordination Protocol
+## Key Implementation Patterns
 
-### Every Agent Spawned via Task Tool MUST:
+### Logto Integration (from docs/)
 
-**1️⃣ BEFORE Work:**
-```bash
-npx claude-flow@alpha hooks pre-task --description "[task]"
-npx claude-flow@alpha hooks session-restore --session-id "swarm-[id]"
-```
+**Setup Requirements**:
+- Next.js 15 App Router with Logto client
+- Organization-enabled Logto instance
+- Environment configuration for SPA and API resources
 
-**2️⃣ DURING Work:**
-```bash
-npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
-npx claude-flow@alpha hooks notify --message "[what was done]"
-```
+**Authentication Flow**:
+1. SPA application for frontend authentication
+2. Machine-to-Machine (M2M) for backend API
+3. Organization-based token exchange
+4. Role and permission validation
 
-**3️⃣ AFTER Work:**
-```bash
-npx claude-flow@alpha hooks post-task --task-id "[task]"
-npx claude-flow@alpha hooks session-end --export-metrics true
-```
+**Multi-tenant Patterns**:
+- Organization-scoped API calls
+- Cross-domain session management (for subdomain routing)
+- Permission-based UI rendering
+- Tenant data isolation
 
-## 🎯 Concurrent Execution Examples
+### Development Guidelines
 
-### ✅ CORRECT WORKFLOW: MCP Coordinates, Claude Code Executes
+**UI Development**:
+- Use shadcn/ui components from `@/components/ui`
+- Follow New York style conventions
+- Implement responsive patterns (mobile-first)
+- Use CSS variables for consistent theming
 
-```javascript
-// Step 1: MCP tools set up coordination (optional, for complex tasks)
-[Single Message - Coordination Setup]:
-  mcp__claude-flow__swarm_init { topology: "mesh", maxAgents: 6 }
-  mcp__claude-flow__agent_spawn { type: "researcher" }
-  mcp__claude-flow__agent_spawn { type: "coder" }
-  mcp__claude-flow__agent_spawn { type: "tester" }
+**State Management**:
+- React Hook Form for form state
+- Zod schemas for validation
+- Client components for interactive features
+- Server components for data fetching
 
-// Step 2: Claude Code Task tool spawns ACTUAL agents that do the work
-[Single Message - Parallel Agent Execution]:
-  // Claude Code's Task tool spawns real agents concurrently
-  Task("Research agent", "Analyze API requirements and best practices. Check memory for prior decisions.", "researcher")
-  Task("Coder agent", "Implement REST endpoints with authentication. Coordinate via hooks.", "coder")
-  Task("Database agent", "Design and implement database schema. Store decisions in memory.", "code-analyzer")
-  Task("Tester agent", "Create comprehensive test suite with 90% coverage.", "tester")
-  Task("Reviewer agent", "Review code quality and security. Document findings.", "reviewer")
-  
-  // Batch ALL todos in ONE call
-  TodoWrite { todos: [
-    {id: "1", content: "Research API patterns", status: "in_progress", priority: "high"},
-    {id: "2", content: "Design database schema", status: "in_progress", priority: "high"},
-    {id: "3", content: "Implement authentication", status: "pending", priority: "high"},
-    {id: "4", content: "Build REST endpoints", status: "pending", priority: "high"},
-    {id: "5", content: "Write unit tests", status: "pending", priority: "medium"},
-    {id: "6", content: "Integration tests", status: "pending", priority: "medium"},
-    {id: "7", content: "API documentation", status: "pending", priority: "low"},
-    {id: "8", content: "Performance optimization", status: "pending", priority: "low"}
-  ]}
-  
-  // Parallel file operations
-  Bash "mkdir -p app/{src,tests,docs,config}"
-  Write "app/package.json"
-  Write "app/src/server.js"
-  Write "app/tests/server.test.js"
-  Write "app/docs/API.md"
-```
+**API Integration**:
+- Organization-aware API patterns
+- Token-based authentication
+- Error handling with proper user feedback
+- Loading states and optimistic updates
 
-### ❌ WRONG (Multiple Messages):
-```javascript
-Message 1: mcp__claude-flow__swarm_init
-Message 2: Task("agent 1")
-Message 3: TodoWrite { todos: [single todo] }
-Message 4: Write "file.js"
-// This breaks parallel coordination!
-```
+## Reference Implementation
 
-## Performance Benefits
+The `example/multi-tenant-saas-sample/` directory contains a complete working example demonstrating:
 
-- **84.8% SWE-Bench solve rate**
-- **32.3% token reduction**
-- **2.8-4.4x speed improvement**
-- **27+ neural models**
+**Frontend (React)**:
+- Logto organization authentication
+- Organization-scoped API calls
+- Document management with proper authorization
+- Role-based UI rendering
 
-## Hooks Integration
+**Backend (Node.js)**:
+- JWT validation middleware
+- Organization-based data isolation
+- API resource protection
+- Document CRUD with multi-tenant support
 
-### Pre-Operation
-- Auto-assign agents by file type
-- Validate commands for safety
-- Prepare resources automatically
-- Optimize topology by complexity
-- Cache searches
+**Key Patterns**:
+- Environment configuration (`env.ts`)
+- API base class with organization context
+- Token management and refresh
+- Error handling and user feedback
 
-### Post-Operation
-- Auto-format code
-- Train neural patterns
-- Update memory
-- Analyze performance
-- Track token usage
+## Production Considerations
 
-### Session Management
-- Generate summaries
-- Persist state
-- Track metrics
-- Restore context
-- Export workflows
+**Deployment**:
+- Docker and Kubernetes ready
+- Environment-based configuration
+- Multi-domain support for organization subdomains
+- Scalable authentication with Logto
 
-## Advanced Features (v2.0.0)
+**Security**:
+- Organization-level data isolation
+- Role-based access control (RBAC)
+- JWT validation and token refresh
+- CORS configuration for multi-domain setup
 
-- 🚀 Automatic Topology Selection
-- ⚡ Parallel Execution (2.8-4.4x speed)
-- 🧠 Neural Training
-- 📊 Bottleneck Analysis
-- 🤖 Smart Auto-Spawning
-- 🛡️ Self-Healing Workflows
-- 💾 Cross-Session Memory
-- 🔗 GitHub Integration
+**Monitoring**:
+- Structured logging for multi-tenant context
+- Organization-scoped metrics and analytics
+- Error tracking with tenant isolation
+- Performance monitoring per organization
 
-## Integration Tips
+## Documentation
 
-1. Start with basic swarm init
-2. Scale agents gradually
-3. Use memory for context
-4. Monitor progress regularly
-5. Train patterns from success
-6. Enable hooks automation
-7. Use GitHub tools first
+Comprehensive setup guides in `docs/dashboard/`:
+- **01-foundation-setup.md**: Project initialization and dependencies
+- **02-logto-integration.md**: Authentication setup and configuration
+- **03-production-features.md**: Advanced features and optimization
+- **04-deployment-operations.md**: Production deployment patterns
 
-## Support
-
-- Documentation: https://github.com/ruvnet/claude-flow
-- Issues: https://github.com/ruvnet/claude-flow/issues
-- Flow-Nexus Platform: https://flow-nexus.ruv.io (registration required for cloud features)
-
----
-
-Remember: **Claude Flow coordinates, Claude Code creates!**
-
-# important-instruction-reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
-Never save working files, text/mds and tests to the root folder.
+The documentation provides step-by-step implementation guidance for building production-ready multi-tenant SaaS applications with modern authentication patterns.
