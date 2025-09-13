@@ -51,7 +51,7 @@ export default function CatalogPage() {
                   Welcome back!
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Here's a list of your tasks for this month!
+                  Here&apos;s a list of your tasks for this month!
                 </p>
               </div>
             </div>
