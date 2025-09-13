@@ -15,6 +15,7 @@ const protectedRoutes = [
 const publicRoutes = [
   '/',
   '/api/logto',
+  '/callback',
   '/favicon.ico',
   '/_next'
 ]

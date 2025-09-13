@@ -8,7 +8,8 @@ export const logtoConfig: LogtoNextConfig = {
   cookieSecret: process.env.LOGTO_COOKIE_SECRET!,
   cookieSecure: process.env.NODE_ENV === 'production',
   resources: [
-    process.env.LOGTO_MANAGEMENT_API_RESOURCE!
+    // For standard user authentication, no additional API resources needed
+    // Management API access handled separately via M2M credentials
   ],
   scopes: [
     UserScope.Email,
