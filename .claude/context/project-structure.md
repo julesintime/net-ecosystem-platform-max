@@ -1,7 +1,7 @@
 ---
 created: 2025-09-13T01:34:04Z
-last_updated: 2025-09-13T01:34:04Z
-version: 1.0
+last_updated: 2025-09-13T13:59:46Z
+version: 2.0
 author: Claude Code PM System
 ---
 
@@ -18,21 +18,38 @@ net-ecosystem-platform-max/
 │   ├── rules/                  # Development rules and guidelines
 │   └── scripts/                # PM automation scripts
 ├── app/                        # Next.js 15 App Router pages
+│   ├── api/                   # API routes (NEW)
+│   │   ├── logto/            # Logto authentication callbacks
+│   │   ├── organizations/    # Organization CRUD endpoints
+│   │   └── profile/          # Profile and settings endpoints
 │   ├── layout.tsx             # Root layout with UniversalAppBar
 │   ├── page.tsx               # Homepage
 │   ├── inbox/                 # Communication hub pages
 │   ├── library/               # Template management pages
 │   ├── catalog/               # App marketplace pages
-│   └── profile/               # User/org management pages
+│   └── profile/               # User/org management pages (EXPANDED)
+│       ├── organization/     # Organization management pages (NEW)
+│       └── settings/         # User settings pages (NEW)
 ├── components/                 # Reusable React components
 │   ├── ui/                    # shadcn/ui components (New York style)
 │   ├── forms/                 # Form components with validation
 │   ├── data-table/            # Advanced table components
+│   ├── organization/          # Organization management components (NEW)
+│   ├── profile/               # Profile and user settings (NEW)
+│   ├── navigation/            # Navigation components (NEW)
+│   ├── providers/             # React context providers (NEW)
 │   └── universal-app-bar.tsx  # Main navigation component
 ├── lib/                       # Utilities and shared logic
-│   ├── utils.ts              # Tailwind merge utilities
-│   └── [data].ts             # Mock data and schemas
-├── hooks/                     # Custom React hooks
+│   ├── auth/                  # Authentication utilities (NEW)
+│   ├── contexts/              # React contexts (NEW)
+│   ├── types/                 # TypeScript type definitions (NEW)
+│   ├── utils/                 # Utility functions (EXPANDED)
+│   └── utils.ts              # Tailwind merge utilities
+├── hooks/                     # Custom React hooks (EXPANDED)
+│   ├── use-organization*.ts   # Organization management hooks (NEW)
+│   ├── use-members.ts         # Member management (NEW)
+│   ├── use-invitations.ts     # Invitation system (NEW)
+│   └── use-profile*.ts        # Profile management hooks (NEW)
 ├── docs/                      # Project documentation
 │   └── dashboard/            # Setup and architecture guides
 ├── example/                   # Reference implementation
@@ -82,23 +99,54 @@ The `.claude/` directory contains comprehensive project management:
 
 ## Module Organization
 
-### Authentication Architecture
+### Authentication Architecture (IMPLEMENTED)
 ```
 lib/auth/
-├── jwt-validator.ts           # JWT parsing and validation
-├── organization-context.ts    # Organization context builder
-├── permissions.ts             # Role and permission utilities
-└── middleware-utils.ts        # Middleware helper functions
+├── actions.ts                 # Authentication actions
+├── logto-config.ts           # Logto SDK configuration
+├── organization-context.ts   # Organization context builder (NEW)
+├── types.ts                  # Authentication type definitions
+└── __tests__/                # Authentication test suite (NEW)
 ```
 
-### API Structure  
+### API Structure (IMPLEMENTED)
 ```
 app/api/
-├── auth/                      # Authentication endpoints
-├── organizations/             # Organization CRUD operations
-│   ├── route.ts              # Main organization operations
-│   └── [orgId]/              # Single organization operations
-└── management/                # Management API proxies
+├── logto/                    # Logto authentication callbacks
+│   └── [...logto]/route.ts   # OAuth callback handling
+├── organizations/            # Organization CRUD operations (NEW)
+│   ├── route.ts             # List/create organizations
+│   └── [id]/                # Single organization operations
+│       ├── route.ts         # Get/update/delete organization
+│       ├── members/route.ts # Member management endpoints
+│       └── token/route.ts   # Organization token generation
+└── profile/                 # Profile management endpoints (NEW)
+    └── settings/route.ts    # User settings management
+```
+
+### Multi-Tenant Component Architecture (NEW)
+```
+components/organization/
+├── organization-context.tsx     # Organization context provider
+├── member-management/           # Member management components
+│   ├── members-list.tsx        # Data table for members
+│   ├── invite-member-dialog.tsx # Member invitation form
+│   ├── role-assignment.tsx     # Role selection interface
+│   ├── member-actions.tsx      # Member action dropdown
+│   └── bulk-operations.tsx     # Bulk member operations
+└── settings/                   # Organization settings
+    ├── organization-profile.tsx # Profile editing
+    ├── organization-danger.tsx  # Danger zone operations
+    └── usage-metrics.tsx       # Usage analytics
+```
+
+### Profile Integration Components (NEW)
+```
+components/profile/
+├── profile-dropdown.tsx         # Enhanced profile menu
+├── organization-selector.tsx    # Organization switcher
+├── organization-quick-actions.tsx # Quick access actions
+└── user-settings.tsx           # Personal settings interface
 ```
 
 ## Import Path Aliases
@@ -140,13 +188,17 @@ Configured in `tsconfig.json` and `components.json`:
 
 ## Documentation Structure
 
-### Epic Documentation (`/.claude/epics/ecosystem-net-platform-max/`)
-- **`epic.md`** - Main epic documentation
-- **`9.md` - `15.md`** - Individual task files (GitHub issue IDs)
-- **`github-mapping.md`** - Issue mapping and sync information
+### Epic Documentation (COMPLETED & ARCHIVED)
+- **`.claude/epics/archived/ecosystem-net-platform-max/`** - Completed epic (MOVED)
+  - **`epic.md`** - Main epic documentation (status: completed)
+  - **`9.md` - `15.md`** - Individual task files (all closed)
+  - **`github-mapping.md`** - Issue mapping and sync information
 
 ### Project Documentation
 - **`CLAUDE.md`** - Primary development guidance
 - **`README.md`** - Basic project information
 - **`docs/dashboard/`** - Setup and architecture guides
 - **`example/`** - Reference implementation patterns
+
+## Update History
+- 2025-09-13T13:59:46Z: Major structural update - added complete multi-tenant SaaS implementation with organization management, API routes, profile integration, and comprehensive component architecture

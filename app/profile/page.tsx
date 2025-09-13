@@ -11,6 +11,7 @@ import { AccountForm } from "@/components/forms/account-form"
 import { AppearanceForm } from "@/components/forms/appearance-form"
 import { NotificationsForm } from "@/components/forms/notifications-form"
 import { DisplayForm } from "@/components/forms/display-form"
+import { OrganizationQuickActions } from "@/components/profile/organization-quick-actions"
 
 const sidebarNavItems = [
   {
@@ -20,6 +21,10 @@ const sidebarNavItems = [
   {
     title: "Account", 
     href: "/profile/account",
+  },
+  {
+    title: "Organization",
+    href: "/profile/organization",
   },
   {
     title: "Appearance",
@@ -65,6 +70,19 @@ export default function ProfilePage() {
             </div>
             <Separator />
             <AccountForm />
+          </div>
+        )
+      case "Organization":
+        return (
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-medium">Organization</h3>
+              <p className="text-sm text-muted-foreground">
+                Manage your organization settings and team members.
+              </p>
+            </div>
+            <Separator />
+            <OrganizationQuickActions />
           </div>
         )
       case "Appearance":

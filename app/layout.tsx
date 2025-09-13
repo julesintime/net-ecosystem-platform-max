@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { UniversalAppBar } from "@/components/universal-app-bar"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { OrganizationProvider } from "@/components/providers/organization-provider"
+import { Toaster } from "@/components/ui/sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +32,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TooltipProvider>
-          <div className="flex h-screen">
-            <UniversalAppBar />
-            <main className="flex-1 md:pl-16 pb-16 md:pb-0 overflow-hidden">
-              {children}
-            </main>
-          </div>
+          <OrganizationProvider>
+            <div className="flex h-screen">
+              <UniversalAppBar />
+              <main className="flex-1 md:pl-16 pb-16 md:pb-0 overflow-hidden">
+                {children}
+              </main>
+            </div>
+            <Toaster />
+          </OrganizationProvider>
         </TooltipProvider>
       </body>
     </html>

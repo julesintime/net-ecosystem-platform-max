@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { AuthButton } from "./auth/auth-button"
+import { OrganizationIndicator } from "./navigation/organization-indicator"
+import { ProfileDropdown } from "./profile/profile-dropdown"
 
 const navigation = [
   {
@@ -71,9 +73,23 @@ export function UniversalAppBarClient({ isAuthenticated }: UniversalAppBarClient
           })}
         </nav>
         
+        {/* Organization Context */}
+        {isAuthenticated && (
+          <div className="mt-auto px-2 pb-4">
+            <OrganizationIndicator variant="compact" />
+          </div>
+        )}
+        
         {/* Authentication Controls */}
-        <div className="mt-auto flex flex-col items-center gap-4 px-2 py-8">
-          <AuthButton isAuthenticated={isAuthenticated} />
+        <div className={cn(
+          "flex flex-col items-center gap-4 px-2 py-8",
+          isAuthenticated ? "mt-4" : "mt-auto"
+        )}>
+          {isAuthenticated ? (
+            <ProfileDropdown />
+          ) : (
+            <AuthButton isAuthenticated={isAuthenticated} />
+          )}
         </div>
       </div>
 
