@@ -4,7 +4,7 @@ status: backlog
 created: 2025-09-13T00:37:29Z
 progress: 0%
 prd: .claude/prds/ecosystem-net-platform-max.md
-github: [Will be updated when synced to GitHub]
+github: https://github.com//issues/1
 ---
 
 # Epic: Ecosystem Net Platform Max
