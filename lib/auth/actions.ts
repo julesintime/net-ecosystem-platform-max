@@ -2,16 +2,13 @@
 
 import { signIn, signOut, getLogtoContext } from '@logto/next/server-actions'
 import { logtoConfig } from './logto-config'
-import { redirect } from 'next/navigation'
 
 export async function handleSignIn() {
-  await signIn(logtoConfig, {
-    redirectUri: `${process.env.LOGTO_BASE_URL}/api/logto/callback`
-  })
+  await signIn(logtoConfig)
 }
 
 export async function handleSignOut() {
-  await signOut(logtoConfig, process.env.LOGTO_BASE_URL || 'http://localhost:6789')
+  await signOut(logtoConfig)
 }
 
 export async function getAuthContext() {
