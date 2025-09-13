@@ -1,0 +1,57 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e4]:
+      - link "Inbox" [ref=e5] [cursor=pointer]:
+        - /url: /inbox
+        - img
+        - generic [ref=e6] [cursor=pointer]: Inbox
+      - link "Library" [ref=e7] [cursor=pointer]:
+        - /url: /library
+        - img
+        - generic [ref=e8] [cursor=pointer]: Library
+      - link "Catalog" [ref=e9] [cursor=pointer]:
+        - /url: /catalog
+        - img
+        - generic [ref=e10] [cursor=pointer]: Catalog
+      - link "Profile" [ref=e11] [cursor=pointer]:
+        - /url: /profile
+        - img
+        - generic [ref=e12] [cursor=pointer]: Profile
+      - button "Sign In" [ref=e13]:
+        - img
+        - generic [ref=e14]: Sign In
+    - main [ref=e15]:
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - heading "Net Ecosystem Platform" [level=1] [ref=e19]
+          - paragraph [ref=e20]: Welcome to your universal platform
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e23]: Get Started
+            - generic [ref=e24]: Choose where you'd like to begin
+          - generic [ref=e25]:
+            - link "Go to Inbox" [ref=e26] [cursor=pointer]:
+              - /url: /inbox
+            - link "Browse Library" [ref=e27] [cursor=pointer]:
+              - /url: /library
+            - link "View Catalog" [ref=e28] [cursor=pointer]:
+              - /url: /catalog
+            - link "View Profile" [ref=e29] [cursor=pointer]:
+              - /url: /profile
+  - region "Notifications alt+T"
+  - generic [ref=e34] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e35] [cursor=pointer]:
+      - img [ref=e36] [cursor=pointer]
+    - generic [ref=e39] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e40] [cursor=pointer]:
+        - generic [ref=e41] [cursor=pointer]:
+          - generic [ref=e42] [cursor=pointer]: "0"
+          - generic [ref=e43] [cursor=pointer]: "1"
+        - generic [ref=e44] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e45] [cursor=pointer]:
+        - img [ref=e46] [cursor=pointer]
+  - alert [ref=e48]
+```

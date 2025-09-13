@@ -1,0 +1,84 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e4]:
+      - link "Inbox" [ref=e5] [cursor=pointer]:
+        - /url: /inbox
+        - img
+        - generic [ref=e6] [cursor=pointer]: Inbox
+      - link "Library" [ref=e7] [cursor=pointer]:
+        - /url: /library
+        - img
+        - generic [ref=e8] [cursor=pointer]: Library
+      - link "Catalog" [ref=e9] [cursor=pointer]:
+        - /url: /catalog
+        - img
+        - generic [ref=e10] [cursor=pointer]: Catalog
+      - link "Profile" [ref=e11] [cursor=pointer]:
+        - /url: /profile
+        - img
+        - generic [ref=e12] [cursor=pointer]: Profile
+      - button "Sign In" [ref=e13]:
+        - img
+        - generic [ref=e14]: Sign In
+    - main [ref=e15]:
+      - generic [ref=e17]:
+        - generic [ref=e19]:
+          - button [ref=e20]:
+            - img
+          - heading "Settings" [level=1] [ref=e21]
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - heading "Profile" [level=3] [ref=e26]
+            - paragraph [ref=e27]: This is how others will see you on the site.
+          - generic [ref=e28]:
+            - generic [ref=e29]:
+              - generic [ref=e30]: Username
+              - textbox "Username" [ref=e31]: johndoe
+              - paragraph [ref=e32]: This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days.
+            - generic [ref=e33]:
+              - generic [ref=e34]: Email
+              - textbox "Email" [ref=e35]: john.doe@example.com
+              - paragraph [ref=e36]: You can manage verified email addresses in your email settings.
+            - generic [ref=e37]:
+              - generic [ref=e38]: Bio
+              - textbox "Bio" [ref=e39]: I own a computer.
+              - paragraph [ref=e40]:
+                - text: You can
+                - generic [ref=e41]: "@mention"
+                - text: other users and organizations to link to them.
+            - generic [ref=e42]:
+              - generic [ref=e43]:
+                - generic [ref=e44]: URLs
+                - paragraph [ref=e45]: Add links to your website, blog, or social media profiles.
+                - generic [ref=e46]:
+                  - textbox "URLs" [ref=e47]: https://shadcn.com
+                  - button [ref=e48]:
+                    - img
+              - generic [ref=e49]:
+                - generic [ref=e50]: URLs
+                - paragraph [ref=e51]: Add links to your website, blog, or social media profiles.
+                - generic [ref=e52]:
+                  - textbox "URLs" [ref=e53]: http://twitter.com/shadcn
+                  - button [ref=e54]:
+                    - img
+              - button "Add URL" [ref=e55]:
+                - img
+                - text: Add URL
+            - button "Update profile" [ref=e56]
+  - region "Notifications alt+T"
+  - generic [ref=e61] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e62] [cursor=pointer]:
+      - img [ref=e63] [cursor=pointer]
+    - generic [ref=e66] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e67] [cursor=pointer]:
+        - generic [ref=e68] [cursor=pointer]:
+          - generic [ref=e69] [cursor=pointer]: "0"
+          - generic [ref=e70] [cursor=pointer]: "1"
+        - generic [ref=e71] [cursor=pointer]: Issue
+      - button "Collapse issues badge" [ref=e72] [cursor=pointer]:
+        - img [ref=e73] [cursor=pointer]
+  - alert [ref=e75]
+```

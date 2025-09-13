@@ -1,0 +1,228 @@
+# Authentication Health Monitoring Configuration
+# This configuration can be used with monitoring tools like Prometheus, DataDog, or custom solutions
+
+version: '1.0'
+name: 'Authentication Health Monitoring'
+description: 'Comprehensive monitoring for Logto authentication system'
+
+# Health Check Endpoints
+health_checks:
+  - name: "app_health"
+    endpoint: "/api/health"
+    interval: "30s"
+    timeout: "10s"
+    expected_status: 200
+    alerts:
+      - condition: "status != 200"
+        severity: "critical"
+        message: "Application health endpoint is failing"
+      - condition: "response.auth.logto.configured != true"
+        severity: "critical" 
+        message: "Logto authentication is not properly configured"
+      - condition: "response.status == 'degraded'"
+        severity: "warning"
+        message: "Application is running in degraded mode"
+
+  - name: "auth_endpoints"
+    checks:
+      - endpoint: "/api/logto/sign-in"
+        expected_status: [302, 307]
+        description: "Sign-in endpoint should redirect to Logto"
+      - endpoint: "/api/logto/sign-out" 
+        expected_status: [302, 307]
+        description: "Sign-out endpoint should redirect properly"
+      - endpoint: "/api/logto/callback"
+        expected_status: [200, 302, 400]
+        description: "Callback endpoint should handle requests"
+    interval: "60s"
+    timeout: "15s"
+
+# Performance Metrics
+performance_metrics:
+  - name: "auth_response_time"
+    description: "Response time for authentication endpoints"
+    endpoints:
+      - "/api/logto/sign-in"
+      - "/api/logto/sign-out"
+      - "/api/logto/callback"
+    thresholds:
+      warning: "2s"
+      critical: "5s"
+
+  - name: "page_load_time"
+    description: "Page load times for authenticated pages"
+    pages:
+      - "/"
+      - "/profile"
+      - "/inbox"
+      - "/library"
+      - "/catalog"
+    thresholds:
+      warning: "3s"
+      critical: "8s"
+
+# Error Rate Monitoring
+error_monitoring:
+  - name: "auth_error_rate"
+    description: "Track authentication-related errors"
+    log_patterns:
+      - pattern: "Authentication failed"
+        severity: "warning"
+      - pattern: "JWT validation failed"
+        severity: "critical"
+      - pattern: "Organization token refresh failed"
+        severity: "warning"
+      - pattern: "Logto callback error"
+        severity: "critical"
+    threshold: "5% over 5 minutes"
+
+  - name: "api_error_rate"
+    description: "Track API endpoint error rates"
+    endpoints:
+      - "/api/organizations"
+      - "/api/organizations/*/token"
+      - "/api/organizations/*/members"
+      - "/api/profile/settings"
+    thresholds:
+      warning: "10% over 5 minutes"
+      critical: "25% over 5 minutes"
+
+# Security Monitoring
+security_monitoring:
+  - name: "failed_auth_attempts"
+    description: "Monitor failed authentication attempts"
+    patterns:
+      - "Invalid JWT token"
+      - "Expired token"
+      - "Unauthorized access attempt"
+    threshold: "10 attempts per minute from same IP"
+    action: "rate_limit"
+
+  - name: "suspicious_activity"
+    description: "Detect suspicious authentication activity"
+    patterns:
+      - "Multiple organization access from different IPs"
+      - "Token refresh frequency > 10/minute"
+      - "Cross-organization access violations"
+    severity: "high"
+
+# Alerting Rules
+alerts:
+  critical:
+    - name: "auth_system_down"
+      condition: "health_check.app_health.status != 200 for 2 minutes"
+      notification_channels: ["pagerduty", "slack-critical"]
+      escalation_time: "5 minutes"
+      
+    - name: "logto_configuration_error"
+      condition: "health_check.app_health.auth.logto.configured != true"
+      notification_channels: ["pagerduty", "slack-critical"]
+      escalation_time: "immediate"
+      
+    - name: "auth_endpoints_failing"
+      condition: "health_check.auth_endpoints failed for 3 consecutive checks"
+      notification_channels: ["pagerduty", "slack-critical"]
+      escalation_time: "2 minutes"
+
+  warning:
+    - name: "degraded_performance"
+      condition: "performance_metrics.auth_response_time > warning_threshold"
+      notification_channels: ["slack-alerts"]
+      escalation_time: "10 minutes"
+      
+    - name: "increased_error_rate"
+      condition: "error_monitoring.auth_error_rate > 5%"
+      notification_channels: ["slack-alerts", "email"]
+      escalation_time: "15 minutes"
+
+# Notification Channels
+notification_channels:
+  slack-critical:
+    webhook_url: "${SLACK_CRITICAL_WEBHOOK}"
+    channel: "#alerts-critical"
+    
+  slack-alerts:
+    webhook_url: "${SLACK_ALERTS_WEBHOOK}"
+    channel: "#alerts"
+    
+  pagerduty:
+    integration_key: "${PAGERDUTY_INTEGRATION_KEY}"
+    
+  email:
+    smtp_host: "${SMTP_HOST}"
+    from: "${ALERT_EMAIL_FROM}"
+    to: "${ALERT_EMAIL_TO}"
+
+# Dashboard Configuration
+dashboards:
+  - name: "Authentication Overview"
+    panels:
+      - title: "Health Status"
+        type: "status"
+        query: "app_health_status"
+        
+      - title: "Authentication Response Times"
+        type: "line_chart"
+        query: "auth_response_time"
+        time_range: "1h"
+        
+      - title: "Error Rates"
+        type: "bar_chart"
+        query: "error_rates"
+        time_range: "24h"
+        
+      - title: "Active Sessions"
+        type: "gauge"
+        query: "active_sessions_count"
+        
+      - title: "Organization Activity"
+        type: "heatmap"
+        query: "organization_activity"
+        time_range: "7d"
+
+# Log Aggregation
+log_aggregation:
+  sources:
+    - name: "application_logs"
+      path: "/app/logs/*.log"
+      format: "json"
+      
+    - name: "access_logs"
+      path: "/var/log/nginx/access.log"
+      format: "nginx_combined"
+      
+  filters:
+    auth_events:
+      - pattern: "authentication"
+      - pattern: "logto"
+      - pattern: "jwt"
+      - pattern: "organization"
+      
+  indexes:
+    - name: "auth_events"
+      retention: "30d"
+      
+    - name: "error_logs"
+      retention: "90d"
+
+# Compliance and Audit
+compliance:
+  audit_logs:
+    retention: "2 years"
+    encryption: "AES-256"
+    events:
+      - "user_login"
+      - "user_logout"
+      - "organization_switch"
+      - "permission_check_failed"
+      - "token_refresh"
+      - "admin_actions"
+      
+  privacy:
+    pii_masking:
+      - field: "email"
+        method: "hash"
+      - field: "user_id" 
+        method: "partial"
+      - field: "ip_address"
+        method: "mask_last_octet"
