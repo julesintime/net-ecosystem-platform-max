@@ -2,7 +2,7 @@
 name: logto-authentication-testing-resolution
 status: backlog
 created: 2025-09-13T14:09:28Z
-progress: 0%
+progress: 12.5%
 prd: .claude/prds/logto-authentication-testing-resolution.md
 github: https://github.com/julesintime/net-ecosystem-platform-max/issues/16
 ---
