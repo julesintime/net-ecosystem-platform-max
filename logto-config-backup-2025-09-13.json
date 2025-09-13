@@ -1,0 +1,299 @@
+{
+  "timestamp": "2025-09-13T23:17:00.472Z",
+  "logtoEndpoint": "https://z3zlta.logto.app/",
+  "backupVersion": "1.0",
+  "configuration": {
+    "spaApplication": {
+      "tenantId": "z3zlta",
+      "id": "m07bzoq8ltp8fswv7m2y8",
+      "name": "ecosystem-net-platform-max",
+      "secret": "#internal:30eI9Tu2NSfPff3B2e9R61RHXlXGcdBw",
+      "description": null,
+      "type": "Traditional",
+      "oidcClientMetadata": {
+        "redirectUris": [
+          "http://localhost:6789/callback"
+        ],
+        "postLogoutRedirectUris": [],
+        "backchannelLogoutSessionRequired": false
+      },
+      "customClientMetadata": {
+        "corsAllowedOrigins": [],
+        "idTokenTtl": 3600,
+        "refreshTokenTtlInDays": 14,
+        "alwaysIssueRefreshToken": false,
+        "rotateRefreshToken": true
+      },
+      "protectedAppMetadata": null,
+      "customData": {},
+      "isThirdParty": false,
+      "createdAt": 1757722320540,
+      "isAdmin": false
+    },
+    "m2mApplication": {
+      "tenantId": "z3zlta",
+      "id": "wcjwd10m66h51xsqn8e69",
+      "name": "fumadocs-m2m",
+      "secret": "#internal:lX94kExGQz5ZUF1oYbsC92fFhcT8VklS",
+      "description": null,
+      "type": "MachineToMachine",
+      "oidcClientMetadata": {
+        "redirectUris": [],
+        "postLogoutRedirectUris": []
+      },
+      "customClientMetadata": {},
+      "protectedAppMetadata": null,
+      "customData": {},
+      "isThirdParty": false,
+      "createdAt": 1757435603231,
+      "isAdmin": false
+    },
+    "allApplications": [
+      {
+        "tenantId": "z3zlta",
+        "id": "m07bzoq8ltp8fswv7m2y8",
+        "name": "ecosystem-net-platform-max",
+        "secret": "#internal:30eI9Tu2NSfPff3B2e9R61RHXlXGcdBw",
+        "description": null,
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:6789/callback"
+          ],
+          "postLogoutRedirectUris": [],
+          "backchannelLogoutSessionRequired": false
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [],
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "alwaysIssueRefreshToken": false,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1757722320540
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "wcjwd10m66h51xsqn8e69",
+        "name": "fumadocs-m2m",
+        "secret": "#internal:lX94kExGQz5ZUF1oYbsC92fFhcT8VklS",
+        "description": null,
+        "type": "MachineToMachine",
+        "oidcClientMetadata": {
+          "redirectUris": [],
+          "postLogoutRedirectUris": []
+        },
+        "customClientMetadata": {},
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1757435603231
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "hxhsijeu0xy3bplqr79v9",
+        "name": "fumadocs",
+        "secret": "#internal:Pb12PTnwv6YD9lHAgryDkMQJ6SxgRbS1",
+        "description": null,
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3456/api/logto/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3456/api/logto/sign-out-callback"
+          ],
+          "backchannelLogoutSessionRequired": false
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [],
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "alwaysIssueRefreshToken": false,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1757434553986
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "4m2ft1gp6gygqze0n9lbe",
+        "name": "platform-logto-convex",
+        "secret": "#internal:b8Sy7K27fsEWe4zhqvbhpZD5kOzhk2SM",
+        "description": null,
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3000/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3000/"
+          ]
+        },
+        "customClientMetadata": {},
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1754345149175
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "nvbs2a57vg122qc16kcfo",
+        "name": "app-store",
+        "secret": "#internal:b5XWVtuuIfvyquuL1Xt8TmPY2FGCwV34",
+        "description": null,
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [],
+          "postLogoutRedirectUris": []
+        },
+        "customClientMetadata": {},
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1754320656154
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "q10s929g6kg0s32caarc6",
+        "name": "Demo CRM",
+        "secret": "#internal:TuqujCHPTbXBjFU2onV469HSsDDn1OPu",
+        "description": "A customer relationship management system for managing contacts, deals, and sales pipelines.",
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3002/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3002/callback"
+          ],
+          "backchannelLogoutSessionRequired": false
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [],
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "alwaysIssueRefreshToken": false,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": true,
+        "createdAt": 1754314271669
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "a86j9yzz0atpwwydhs1rx",
+        "name": "Demo Analytics",
+        "secret": "#internal:3m4XGBkbSHtY8YnjiX7Vw1iYcHCzw84s",
+        "description": "A comprehensive analytics dashboard for tracking user engagement, conversion rates, and business metrics.",
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3001/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3001/callback"
+          ],
+          "backchannelLogoutSessionRequired": false
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [],
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "alwaysIssueRefreshToken": false,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": true,
+        "createdAt": 1754314271167
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "gctqj87ewhpveya3yva7v",
+        "name": "ecosystem-platform-spa",
+        "secret": "#internal:3VTdgSYHnUcbafCkB4iP7oPZgVIw7AV2",
+        "description": "Single Page Application for Ecosystem Platform",
+        "type": "SPA",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3000/callback",
+            "http://acme.localhost:3000/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3000/",
+            "http://acme.localhost:3000/"
+          ]
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [
+            "http://localhost:3000",
+            "http://*.localhost:3000",
+            "http://acme.localhost:3000"
+          ]
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1754295672096
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "hw9ibfdjcdneqy05ub0kd",
+        "name": "ecosystem-platform",
+        "secret": "#internal:FF20I9BGIpoQ6xpnWigLhHBplo6dxSGy",
+        "description": null,
+        "type": "Traditional",
+        "oidcClientMetadata": {
+          "redirectUris": [
+            "http://localhost:3000/callback"
+          ],
+          "postLogoutRedirectUris": [
+            "http://localhost:3000/"
+          ],
+          "backchannelLogoutSessionRequired": false
+        },
+        "customClientMetadata": {
+          "corsAllowedOrigins": [
+            "http://*.localhost:3000"
+          ],
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "alwaysIssueRefreshToken": false,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1754134218625
+      },
+      {
+        "tenantId": "z3zlta",
+        "id": "nc945wqk682rnxj46vdnu",
+        "name": "service-account-api",
+        "secret": "#internal:nVuTJMiJm3KODpmOEwHVfmAm1UqSqt5W",
+        "description": null,
+        "type": "MachineToMachine",
+        "oidcClientMetadata": {
+          "redirectUris": [],
+          "postLogoutRedirectUris": []
+        },
+        "customClientMetadata": {
+          "idTokenTtl": 3600,
+          "refreshTokenTtlInDays": 14,
+          "rotateRefreshToken": true
+        },
+        "protectedAppMetadata": null,
+        "customData": {},
+        "isThirdParty": false,
+        "createdAt": 1754120459699
+      }
+    ]
+  }
+}
