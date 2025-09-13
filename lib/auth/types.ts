@@ -7,21 +7,3 @@ export interface LogtoUser extends UserInfoResponse {
   name?: string
   picture?: string
 }
-
-export interface AuthContextType {
-  user: LogtoUser | null
-  isAuthenticated: boolean
-  isLoading: boolean
-  signIn: () => void
-  signOut: () => void
-}
-
-export interface LogtoConfig {
-  endpoint: string
-  appId: string
-  appSecret: string
-  baseUrl: string
-  cookieSecret: string
-  resources?: string[]
-  scopes?: string[]
-}

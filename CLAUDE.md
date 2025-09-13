@@ -2,6 +2,27 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> Think carefully and implement the most concise solution that changes as little code as possible.
+
+## SUB-AGENT USAGE FOR CONTEXT OPTIMIZATION
+
+### Always use specialized sub-agents when appropriate:
+- **file-analyzer** sub-agent for reading files, especially logs and verbose outputs
+- **code-analyzer** sub-agent for code analysis, bug research, and logic tracing  
+- **test-runner** sub-agent for executing and analyzing test results
+
+## ABSOLUTE RULES
+
+- **NO PARTIAL IMPLEMENTATION** - Complete all functionality in one go
+- **NO SIMPLIFICATION** - No "//This is simplified for now" comments
+- **NO CODE DUPLICATION** - Check existing codebase before writing new functions
+- **NO DEAD CODE** - Either use or delete completely
+- **IMPLEMENT TESTS FOR EVERY FUNCTION** - Verbose tests that reveal flaws
+- **NO INCONSISTENT NAMING** - Follow existing codebase patterns
+- **NO OVER-ENGINEERING** - Simple functions over unnecessary abstractions
+- **NO MIXED CONCERNS** - Proper separation of validation, API, UI logic
+- **NO RESOURCE LEAKS** - Always clean up connections, timeouts, listeners
+
 ## Project Overview
 
 This is a **Net Ecosystem Platform** - a multi-tenant SaaS application built with Next.js 15, shadcn/ui, and Logto for authentication and organization-based identity management. The project serves as a foundation for building production-ready organization-aware platform applications.
@@ -25,6 +46,19 @@ npm run lint
 
 ### Package Management
 Uses `pnpm` as the package manager (evidenced by `pnpm-lock.yaml`).
+
+### Testing Philosophy
+- Always use the **test-runner** sub-agent to execute tests
+- **NO MOCK SERVICES** - Use real services for testing
+- Don't move to next test until current test completes
+- If test fails, check test structure before refactoring code
+- Write **verbose tests** for debugging purposes
+
+### Error Handling Philosophy
+- **Fail fast** for critical configuration (missing models)
+- **Log and continue** for optional features
+- **Graceful degradation** when external services unavailable
+- **User-friendly messages** through resilience layer
 
 ## Architecture Overview
 
@@ -55,8 +89,10 @@ Based on Logto organizations for true multi-tenant SaaS architecture:
 - Permission-based routing and feature access
 
 **Authentication Patterns** (from example implementation):
+- **Never create custom login/register pages** - redirect to Logto's hosted sign-in experience
 - `getOrganizationToken(organizationId)` for organization-scoped API calls
 - `getUserOrganizationScopes(organizationId)` for permission checking
+- JWT audience format: `"urn:logto:organization:{orgId}"` for organization context
 - Separate handling for user-level vs organization-level authentication
 
 **API Integration**:
@@ -157,6 +193,27 @@ The `example/multi-tenant-saas-sample/` directory contains a complete working ex
 - Token management and refresh
 - Error handling and user feedback
 
+## Development Port Configuration
+
+The application runs on **port 6789** in development (configured in `.env.local`):
+- Development server: `http://localhost:6789`  
+- Logto redirect URI: `http://localhost:6789/api/logto/callback`
+- Ensure alignment between `.env.local` and dev server configuration
+
+## Critical Implementation Notes
+
+### Logto Integration
+- **Logto Instance**: `https://z3zlta.logto.app/`
+- **Organization Template RBAC**: Use built-in admin/member/guest roles
+- **JWT-Based Authorization**: Stateless with organization context from tokens
+- **Management API Integration**: Logto as primary data store for multi-tenancy
+
+### Component Standards
+- Use **shadcn/ui New York style** components exclusively
+- **CSS Variables** for theming (configured in `components.json`)
+- **Lucide React** for icons
+- **React Hook Form + Zod** for all form handling
+
 ## Production Considerations
 
 **Deployment**:
@@ -186,3 +243,12 @@ Comprehensive setup guides in `docs/dashboard/`:
 - **04-deployment-operations.md**: Production deployment patterns
 
 The documentation provides step-by-step implementation guidance for building production-ready multi-tenant SaaS applications with modern authentication patterns.
+
+## Communication Style
+
+- **Be concise and direct** - avoid unnecessary elaboration
+- **Welcome criticism** - challenge approaches and suggest better alternatives
+- **Be skeptical** - question implementations and standards
+- **Ask questions** when intent is unclear - don't guess
+- **No flattery** unless specifically requested
+- **Short summaries preferred** unless working through detailed plans

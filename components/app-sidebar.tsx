@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ArchiveX, Command, File, Inbox, Send, Trash2 } from "lucide-react"
 
-import { NavUser } from "@/components/nav-user"
+// import { NavUser } from "@/components/nav-user" // Removed - not available
 import { Label } from "@/components/ui/label"
 import {
   Sidebar,
@@ -187,7 +187,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/* NavUser component not available - placeholder for user info */}
+        <div className="p-2 text-sm text-muted-foreground">
+          {data.user.name} - {data.user.email}
+        </div>
       </SidebarFooter>
     </Sidebar>
   )
