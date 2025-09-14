@@ -8,16 +8,8 @@ export async function GET(request: NextRequest) {
   
   console.log('🔄 Processing OAuth callback with params:', Object.fromEntries(searchParams.entries()))
   
-  try {
-    // Handle the OAuth callback
-    await handleSignIn(logtoConfig, searchParams)
-    
-    console.log('✅ Authentication successful, redirecting to home')
-    // Redirect to home page after successful authentication
-    redirect('/')
-  } catch (error) {
-    console.error('❌ Authentication callback failed:', error)
-    // Redirect to home with error parameter
-    redirect('/?error=auth_failed')
-  }
+  await handleSignIn(logtoConfig, searchParams)
+  
+  console.log('✅ Authentication successful, redirecting to home')
+  redirect('/')
 }
