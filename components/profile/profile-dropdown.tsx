@@ -70,7 +70,7 @@ export function ProfileDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full" data-testid="profile-dropdown">
           <Avatar className="h-8 w-8">
             <AvatarImage src={userAvatar} alt={displayName} />
             <AvatarFallback>{initials}</AvatarFallback>
@@ -231,6 +231,7 @@ export function ProfileDropdown({
         <DropdownMenuItem 
           onClick={() => handleSignOut()}
           className="text-red-600 focus:text-red-600 focus:bg-red-50"
+          data-testid="sign-out-button"
         >
           <LogOut className="mr-2 h-4 w-4" />
           Sign out

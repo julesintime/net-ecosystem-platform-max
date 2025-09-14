@@ -7,13 +7,13 @@ test.describe('Authentication Flow', () => {
   })
 
   test('should display login button on homepage', async ({ page }) => {
-    // Check that login UI is present
-    await expect(page.locator('[data-testid="auth-button"]')).toBeVisible()
+    // Check that login UI is present (first auth button)
+    await expect(page.locator('[data-testid="auth-button"]').first()).toBeVisible()
   })
 
   test('should redirect to Logto on login attempt', async ({ page }) => {
-    // Click login and verify redirect
-    const loginButton = page.locator('[data-testid="auth-button"]')
+    // Click login and verify redirect (use first auth button)
+    const loginButton = page.locator('[data-testid="auth-button"]').first()
     await expect(loginButton).toBeVisible()
     
     // Mock the authentication redirect
@@ -33,7 +33,7 @@ test.describe('Authentication Flow', () => {
   })
 
   test('should handle authentication callback', async ({ page }) => {
-    // Mock successful callback
+    // Mock successful callback at the correct SDK route
     await page.route('**/api/logto/callback*', route => {
       route.fulfill({
         status: 302,
@@ -44,9 +44,10 @@ test.describe('Authentication Flow', () => {
       })
     })
 
+    // Go to the legacy callback route which should redirect to SDK route
     await page.goto('/callback?code=mock-auth-code&state=mock-state')
     
-    // Should redirect to home after successful auth
+    // Should end up at home after successful auth
     await expect(page).toHaveURL('/')
   })
 

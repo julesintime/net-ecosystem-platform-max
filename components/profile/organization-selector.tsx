@@ -93,6 +93,7 @@ export function OrganizationSelector({
             variant="outline"
             role="combobox"
             aria-expanded={open}
+            data-testid="organization-selector"
             className={cn(
               "justify-between min-w-0 max-w-[280px]",
               buttonSizeClass

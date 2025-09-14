@@ -35,6 +35,7 @@ export function AuthButton({
         size={size}
         className={`flex flex-col gap-1 h-auto py-2 px-3 ${className}`}
         onClick={handleAuth}
+        data-testid="auth-button"
       >
         {isAuthenticated ? (
           <LogOut className="h-4 w-4" />
@@ -56,6 +57,7 @@ export function AuthButton({
           size={size}
           className={`h-9 w-9 ${className}`}
           onClick={handleAuth}
+          data-testid="auth-button"
         >
           {isAuthenticated ? (
             <LogOut className="h-4 w-4" />
