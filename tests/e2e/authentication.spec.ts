@@ -16,25 +16,25 @@ test.describe('Authentication Flow', () => {
     const loginButton = page.locator('[data-testid="auth-button"]').first()
     await expect(loginButton).toBeVisible()
     
-    // Mock the authentication redirect
-    await page.route('**/api/logto/sign-in', route => {
+    // Mock the authentication redirect to the correct endpoint
+    await page.route('**/api/auth/sign-in', route => {
       route.fulfill({
-        status: 302,
+        status: 307,
         headers: {
-          'Location': 'https://mock-logto.test/sign-in'
+          'Location': 'https://z3zlta.logto.app/oidc/auth'
         }
       })
     })
     
     await loginButton.click()
     
-    // Verify redirect happens (in real scenario would go to Logto)
-    await page.waitForResponse('**/api/logto/sign-in')
+    // Verify redirect happens to the correct endpoint
+    await page.waitForResponse('**/api/auth/sign-in')
   })
 
   test('should handle authentication callback', async ({ page }) => {
-    // Mock successful callback at the correct SDK route
-    await page.route('**/api/logto/callback*', route => {
+    // Mock successful callback at the correct callback route
+    await page.route('**/callback*', route => {
       route.fulfill({
         status: 302,
         headers: {
@@ -44,7 +44,7 @@ test.describe('Authentication Flow', () => {
       })
     })
 
-    // Go to the legacy callback route which should redirect to SDK route
+    // Go to the callback route
     await page.goto('/callback?code=mock-auth-code&state=mock-state')
     
     // Should end up at home after successful auth

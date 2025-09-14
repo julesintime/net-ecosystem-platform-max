@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useOrganizationContext } from '@/hooks/use-organization-context'
 import { OrganizationSelector } from './organization-selector'
-import { handleSignOut } from '@/lib/auth/actions'
 
 interface ProfileDropdownProps {
   userEmail?: string
@@ -229,7 +228,7 @@ export function ProfileDropdown({
         
         {/* Sign Out */}
         <DropdownMenuItem 
-          onClick={() => handleSignOut()}
+          onClick={() => { window.location.href = '/api/auth/sign-out' }}
           className="text-red-600 focus:text-red-600 focus:bg-red-50"
           data-testid="sign-out-button"
         >

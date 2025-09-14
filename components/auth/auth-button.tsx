@@ -3,7 +3,6 @@
 import { LogIn, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { handleSignIn, handleSignOut } from "@/lib/auth/actions"
 
 interface AuthButtonProps {
   isAuthenticated: boolean
@@ -20,11 +19,13 @@ export function AuthButton({
   className = "",
   showText = false
 }: AuthButtonProps) {
-  const handleAuth = async () => {
+  const handleAuth = () => {
     if (isAuthenticated) {
-      await handleSignOut()
+      // Navigate to sign-out endpoint
+      window.location.href = '/api/auth/sign-out'
     } else {
-      await handleSignIn()
+      // Navigate to sign-in endpoint  
+      window.location.href = '/api/auth/sign-in'
     }
   }
 
