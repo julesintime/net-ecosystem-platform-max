@@ -1,7 +1,7 @@
 ---
 created: 2025-09-13T01:34:04Z
-last_updated: 2025-09-13T13:59:46Z
-version: 2.0
+last_updated: 2025-09-14T19:54:43Z
+version: 2.1
 author: Claude Code PM System
 ---
 
@@ -43,6 +43,12 @@ author: Claude Code PM System
 - **React Hook Form 7.62.0** - Form state management
 - **Zod 4.1.8** - Schema validation and TypeScript inference
 - **@hookform/resolvers 5.2.1** - Form resolver integration
+
+### Testing & Quality Assurance
+- **Playwright** - End-to-end testing framework with video recording
+- **Jest** - Unit testing framework with JavaScript/TypeScript support
+- **ESLint** - Code linting and style enforcement
+- **@playwright/test** - Browser automation and E2E testing
 
 ### Data & Tables
 - **@tanstack/react-table 8.21.3** - Advanced table functionality
