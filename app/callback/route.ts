@@ -1,19 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { handleSignIn } from '@logto/next/server-actions'
+import { redirect } from 'next/navigation'
+import { NextRequest } from 'next/server'
+import { logtoConfig } from '@/lib/auth/logto-config'
 
 export async function GET(request: NextRequest) {
-  // This route exists to handle legacy callbacks or misconfigurations
-  // The actual OAuth callback should go to /api/logto/callback
-  
   const searchParams = request.nextUrl.searchParams
-  const params = searchParams.toString()
   
-  console.log('\n=== LEGACY CALLBACK ROUTE ===')
-  console.log('Redirecting to Logto SDK callback handler')
-  console.log('Parameters:', params)
+  console.log('🔄 Processing OAuth callback with params:', Object.fromEntries(searchParams.entries()))
   
-  // Redirect to the correct Logto SDK callback route with all parameters
-  const redirectUrl = `/api/logto/callback${params ? `?${params}` : ''}`
-  console.log('Redirecting to:', redirectUrl)
-  
-  return NextResponse.redirect(new URL(redirectUrl, request.url))
+  try {
+    // Handle the OAuth callback
+    await handleSignIn(logtoConfig, searchParams)
+    
+    console.log('✅ Authentication successful, redirecting to home')
+    // Redirect to home page after successful authentication
+    redirect('/')
+  } catch (error) {
+    console.error('❌ Authentication callback failed:', error)
+    // Redirect to home with error parameter
+    redirect('/?error=auth_failed')
+  }
 }
