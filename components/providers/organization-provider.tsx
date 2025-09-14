@@ -50,6 +50,15 @@ export function OrganizationProvider({
         },
       })
       
+      // Handle unauthenticated state gracefully
+      if (response.status === 401) {
+        // User is not authenticated, clear organization state
+        setUserOrganizations([])
+        setCurrentOrganization(null)
+        OrganizationStorage.clearCurrentOrganization()
+        return
+      }
+      
       if (!response.ok) {
         throw new Error('Failed to fetch organizations')
       }

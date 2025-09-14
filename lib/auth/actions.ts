@@ -12,6 +12,7 @@ export async function handleSignOut() {
 }
 
 export async function getAuthContext() {
+
   try {
     const context = await getLogtoContext(logtoConfig)
     return {
