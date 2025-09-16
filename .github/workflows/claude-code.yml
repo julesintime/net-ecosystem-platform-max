@@ -1,0 +1,196 @@
+name: Claude Code Integration
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened, synchronize]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  checks: write
+  actions: read
+
+jobs:
+  claude-code:
+    # Only run when @claude is mentioned or on specific events
+    if: contains(github.event.comment.body, '@claude') || github.event_name == 'issues' || github.event_name == 'pull_request' || github.event_name == 'pull_request_review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Claude Code Action
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+  claude-issue-triage:
+    # Auto-triage new issues
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    permissions:
+      contents: read
+      issues: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Auto-triage Issue
+        uses: anthropics/claude-code-base-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Analyze this GitHub issue and suggest appropriate labels based on the content.
+            
+            Issue Title: ${{ github.event.issue.title }}
+            Issue Body: ${{ github.event.issue.body }}
+            
+            Available labels in this repository:
+            - bug: Something isn't working
+            - enhancement: New feature or request  
+            - documentation: Improvements or additions to documentation
+            - good first issue: Good for newcomers
+            - help wanted: Extra attention is needed
+            - question: Further information is requested
+            - e2e-tests: Related to end-to-end testing
+            - authentication: Related to Logto authentication
+            - ui: Related to user interface
+            - api: Related to API endpoints
+            
+            Please suggest 1-3 most appropriate labels and provide a brief explanation.
+
+  e2e-tests:
+    # Run E2E tests on PRs
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright
+        run: npx playwright install chromium
+        
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          CI: true
+          LOGTO_DEMO_USERNAME: ${{ secrets.LOGTO_DEMO_USERNAME }}
+          LOGTO_DEMO_PASSWORD: ${{ secrets.LOGTO_DEMO_PASSWORD }}
+          LOGTO_ENDPOINT: ${{ secrets.LOGTO_ENDPOINT }}
+          LOGTO_APP_ID: ${{ secrets.LOGTO_APP_ID }}
+          LOGTO_APP_SECRET: ${{ secrets.LOGTO_APP_SECRET }}
+          LOGTO_M2M_APP_ID: ${{ secrets.LOGTO_M2M_APP_ID }}
+          LOGTO_M2M_APP_SECRET: ${{ secrets.LOGTO_M2M_APP_SECRET }}
+          LOGTO_MANAGEMENT_API_RESOURCE: ${{ secrets.LOGTO_MANAGEMENT_API_RESOURCE }}
+          
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+          
+      - name: Upload Test Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-videos
+          path: test-results/
+          retention-days: 7
+
+  build-and-lint:
+    # Build and lint on PRs
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run linting
+        run: npm run lint
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Comment on PR with build status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Build and lint checks passed successfully!'
+            });
+
+  claude-pr-review:
+    # Claude Code review assistance
+    if: github.event_name == 'pull_request' && (github.event.action == 'opened' || github.event.action == 'synchronize')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Claude PR Review
+        uses: anthropics/claude-code-base-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Review this pull request focusing on:
+            
+            1. **Code Quality**: Check for potential bugs, security issues, and adherence to best practices
+            2. **Testing Coverage**: Ensure E2E tests are updated if needed
+            3. **Documentation**: Check if CLAUDE.md or other docs need updates
+            4. **Authentication Flow**: Verify any Logto integration changes are correct
+            5. **Performance**: Look for potential performance impacts
+            
+            PR Title: ${{ github.event.pull_request.title }}
+            PR Description: ${{ github.event.pull_request.body }}
+            
+            Please provide constructive feedback and suggestions for improvement.
+            Focus on the most important issues and be concise but thorough.

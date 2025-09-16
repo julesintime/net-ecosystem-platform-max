@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Menu } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator"
@@ -25,6 +26,10 @@ const sidebarNavItems = [
   {
     title: "Organization",
     href: "/profile/organization",
+  },
+  {
+    title: "Ecosystem Apps",
+    href: "/profile/ecosystem-apps",
   },
   {
     title: "Appearance",
@@ -83,6 +88,28 @@ export default function ProfilePage() {
             </div>
             <Separator />
             <OrganizationQuickActions />
+          </div>
+        )
+      case "Ecosystem Apps":
+        return (
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-medium">Ecosystem Applications</h3>
+              <p className="text-sm text-muted-foreground">
+                Manage your access to applications in the ecosystem.
+              </p>
+            </div>
+            <Separator />
+            <div className="text-center py-12">
+              <p className="text-muted-foreground mb-4">
+                View and manage your ecosystem applications access.
+              </p>
+              <Button asChild>
+                <Link href="/profile/ecosystem-apps">
+                  View Ecosystem Apps
+                </Link>
+              </Button>
+            </div>
           </div>
         )
       case "Appearance":

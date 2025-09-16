@@ -93,7 +93,7 @@ export function OrganizationSelector({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            data-testid="organization-selector"
+            data-testid="organization-switcher"
             className={cn(
               "justify-between min-w-0 max-w-[280px]",
               buttonSizeClass
@@ -102,14 +102,14 @@ export function OrganizationSelector({
           >
             <div className="flex items-center gap-2 min-w-0">
               <Building className="h-4 w-4 flex-shrink-0" />
-              <span className="truncate">
+              <span className="truncate" data-testid="current-organization">
                 {isLoading ? 'Loading...' : currentOrganization?.name || 'Select organization'}
               </span>
             </div>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0" align="start">
+        <PopoverContent className="w-[300px] p-0" align="start" data-testid="organization-dropdown">
           <Command>
             <CommandInput placeholder="Search organizations..." />
             <CommandList>
@@ -125,12 +125,13 @@ export function OrganizationSelector({
                       value={org.name}
                       onSelect={() => handleSwitch(org.id)}
                       disabled={isSwitchingToThis}
+                      data-testid="organization-item"
                     >
                       <div className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-2 min-w-0">
-                          <Building className="h-4 w-4 flex-shrink-0" />
+                          <Building className="h-4 w-4 flex-shrink-0" data-testid="org-avatar" />
                           <div className="min-w-0 flex-1">
-                            <div className="font-medium truncate">{org.name}</div>
+                            <div className="font-medium truncate" data-testid="org-name">{org.name}</div>
                             {org.description && (
                               <div className="text-sm text-muted-foreground truncate">
                                 {org.description}
@@ -141,7 +142,7 @@ export function OrganizationSelector({
                         <div className="flex items-center gap-2">
                           {isSwitchingToThis && <Loader2 className="h-4 w-4 animate-spin" />}
                           {isCurrentOrg && <Check className="h-4 w-4" />}
-                          {isCurrentOrg && <Badge variant="secondary" className="text-xs">Current</Badge>}
+                          {isCurrentOrg && <Badge variant="secondary" className="text-xs" data-testid="org-role">Current</Badge>}
                         </div>
                       </div>
                     </CommandItem>
@@ -161,6 +162,7 @@ export function OrganizationSelector({
                             setOpen(false)
                           }}
                           className="cursor-pointer"
+                          data-testid="create-organization"
                         >
                           <Plus className="mr-2 h-4 w-4" />
                           Create new organization

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "logto:setup": "node scripts/logto-setup.js",
+    "cleanup:users": "node scripts/cleanup-test-users.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",

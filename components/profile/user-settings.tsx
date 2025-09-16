@@ -13,6 +13,7 @@ import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { useProfileSettings } from '@/hooks/use-profile-settings'
 import { useToast } from '@/hooks/use-toast'
+import { DeleteAccountForm } from '@/components/forms/delete-account-form'
 
 interface UserSettingsProps {
   className?: string
@@ -384,6 +385,9 @@ export function UserSettings({ className }: UserSettingsProps) {
             </CardContent>
           </Card>
         )}
+        
+        {/* Delete Account Section */}
+        <DeleteAccountForm />
       </div>
     </div>
   )

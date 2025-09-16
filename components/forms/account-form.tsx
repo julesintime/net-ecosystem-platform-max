@@ -19,6 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
+import { DeleteAccountForm } from "@/components/forms/delete-account-form"
 
 type AccountFormValues = {
   name: string
@@ -110,6 +112,10 @@ export function AccountForm() {
           )}
         />
         <Button type="submit">Update account</Button>
+        
+        <Separator className="my-8" />
+        
+        <DeleteAccountForm />
       </form>
     </Form>
   )
