@@ -13,7 +13,7 @@
 # testing
 /coverage
 /test-results
-/playwright-report/data
+/playwright-report
 *.webm
 
 # next.js
@@ -42,6 +42,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# build artifacts  
+/.swc/
+/dist/
+/build/
+
+# logs
+/logs/
+*.log
+
+# temporary files
+/temp-assets/
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 
 # Claude Flow generated files
