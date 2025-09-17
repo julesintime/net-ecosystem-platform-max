@@ -329,13 +329,13 @@ top -p $(pgrep -f "next")
 ## Documentation and Resources
 
 ### Internal Links
-- Authentication setup guide: `/docs/dashboard/02-logto-integration.md`
-- API documentation: `/docs/api/authentication.md`
+- Authentication setup guide: `/context/dashboard/02-logto-integration.md`
+- API documentation: `/context/api/authentication.md`
 - Testing procedures: `/auth-testing-guide.md`
 
 ### External Resources
 - Logto Documentation: https://docs.logto.io/
-- Next.js Auth Guide: https://nextjs.org/docs/authentication
+- Next.js Auth Guide: https://nextjs.org/context/authentication
 - JWT Best Practices: https://auth0.com/blog/a-look-at-the-latest-draft-for-jwt-bcp/
 
 ---

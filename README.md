@@ -7,7 +7,7 @@ A **multi-tenant SaaS application** built with Next.js 15, shadcn/ui, and Logto 
 - **🔐 Multi-tenant Authentication**: Logto-based organization management with role-based access control
 - **🎨 Modern UI**: shadcn/ui components with New York style and Tailwind CSS v4
 - **📱 Responsive Design**: Universal app bar with desktop sidebar and mobile bottom navigation
-- **🧪 Comprehensive Testing**: 20+ E2E tests covering full user lifecycle
+- **🧪 Production-Ready Testing**: Playwright E2E tests for critical user paths
 - **🤖 AI Integration**: Claude Code GitHub Actions for automated code assistance
 - **⚡ Performance**: Next.js 15 with Turbopack for fast development and builds
 
@@ -70,7 +70,7 @@ npm run cleanup:users # Clean up test users from Logto
 
 ## 🧪 Testing
 
-### E2E Test Coverage (20/23 tests passing)
+### E2E Test Coverage
 
 The project includes comprehensive end-to-end tests covering:
 
@@ -126,10 +126,10 @@ This project includes **GitHub Actions integration** with Claude Code for AI-pow
 - **@claude Mentions**: AI assistance on issues and PRs
 - **Automated Issue Triage**: Smart labeling of new issues
 - **PR Review Assistance**: AI-powered code review suggestions  
-- **E2E Test Integration**: Automated testing on pull requests
+- **Simple CI/CD**: Minimal GitHub Actions for @claude mentions
 
 ### Setup
-1. Add `ANTHROPIC_API_KEY` to repository secrets
+1. Add `CLAUDE_CODE_OAUTH_TOKEN` to repository secrets
 2. Install the Claude GitHub app on your repository
 3. GitHub Actions will automatically handle AI integration
 
@@ -154,7 +154,7 @@ This project includes **GitHub Actions integration** with Claude Code for AI-pow
 ├── lib/                  # Utilities and shared logic
 ├── tests/e2e/            # End-to-end tests
 ├── .github/workflows/    # GitHub Actions (Claude Code integration)
-└── docs/                 # Documentation and guides
+└── context/             # Documentation and project context
 ```
 
 ## 🌐 Multi-tenant Architecture
@@ -173,7 +173,7 @@ This project includes **GitHub Actions integration** with Claude Code for AI-pow
 
 ## 📖 Documentation
 
-Detailed documentation is available in the `docs/` directory:
+Detailed documentation is available in the `context/` directory:
 - **Foundation Setup**: Project initialization and dependencies
 - **Logto Integration**: Authentication setup and configuration  
 - **Production Features**: Advanced features and optimization
